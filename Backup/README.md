@@ -16,6 +16,6 @@
 - Caso o erro persista, entre em contato com o autor do programa
 
 ### Executável para Windows:
-- Caso não queira instalar o Python, você pode usar o executável para Windows [aqui](./build/exe.win-amd64-3.11/backup.exe)
+- Caso não queira instalar o Python, você pode usar o executável para Windows [aqui](./build/exe.win-amd64-3.11)
 
 ### Não esqueça de dar os devidos créditos ao autor do programa
