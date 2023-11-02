@@ -13,6 +13,6 @@
     - `pip install colorama`
     - `pip install pyfiglet`
     - `pip install termcolor`
-- Caso o erro persista, entre em contato com o [autor](#autor) do programa
+- Caso o erro persista, entre em contato com o autor do programa
 
 ### Não esqueça de dar os devidos créditos ao autor do programa
