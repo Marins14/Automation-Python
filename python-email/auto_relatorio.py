@@ -31,7 +31,7 @@ def tratamento_dados():
         df = pd.read_excel('./dados/dados.xlsx')
         #print(df.head()) #Caso necessário para verificar as tabelas
         #Separando as colunas pela virgula
-        df[['1', '2','3','4','5']] = df['OPA'].str.split(',', n=4, expand=True) #n=1 é o número de vezes que a coluna será separada, n é sempre n-1 em relação a tabela
+        df[['1', '2','3','4','5','6']] = df['OPA'].str.split(',', n=5, expand=True) #n=1 é o número de vezes que a coluna será separada, n é sempre n-1 em relação a tabela
         #Removendo a coluna OPA, já foi tratada e não é mais necessária
         df.drop(columns=['OPA'], inplace=True)
         # Definindo o novo arquivo
@@ -96,4 +96,4 @@ def envio_email():
 if __name__ == '__main__':
     #banco()
     tratamento_dados()
-    #envio_email()
+    envio_email()
