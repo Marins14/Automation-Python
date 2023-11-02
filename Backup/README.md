@@ -1,5 +1,6 @@
 # Simples Programa para realizar backups de arquivos e pastas
-## Autor: [Matheus Marins Bernardello](malito:matheus.bernardello@live.com)
+## Autor: 
+- [Matheus Marins Bernardello](malito:matheus.bernardello@live.com)
 
 ### Como usar:
 1. Instale o Python 3.10 ou superior
