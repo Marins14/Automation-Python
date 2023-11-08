@@ -32,6 +32,12 @@ def tratamento_dados():
         #print(df.head()) #Caso necessário para verificar as tabelas
         #Separando as colunas pela virgula
         df[['1', '2','3','4','5','6']] = df['OPA'].str.split(',', n=5, expand=True) #n=1 é o número de vezes que a coluna será separada, n é sempre n-1 em relação a tabela
+        #Vamos separar a utlima coluna em duas, fazendo o for para cada coluna que contenha ;
+        df = pd.concat([df, df['6'].str.split(';', expand=True)], axis=1) # O Concat concatena as colunas, axis=1 é para concatenar as colunas, axis=0 é para concatenar as linhas
+
+        # Removendo a coluna 6, pois já foi separada
+        df.drop(columns=['6'], inplace=True)
+        #df[['6', '7','8']] = df['6'].str.split(';', n=2, expand=True) # funciona mas sabendo que a coluna 6 é a ultima, não é necessário
         #Removendo a coluna OPA, já foi tratada e não é mais necessária
         df.drop(columns=['OPA'], inplace=True)
         # Definindo o novo arquivo
