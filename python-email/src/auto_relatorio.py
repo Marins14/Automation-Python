@@ -49,9 +49,8 @@ def tratamento_dados():
         # Definindo o novo arquivo
         df.to_excel(path_tratado, index=False)
         print('Dados tratados com sucesso!')
-
-        #Chamando a função que coloca senha no excel
-        crypto_excel(path_tratado, '1234')
+        #Cripitografando o arquivo
+        crypto_excel(path_tratado)
         #Vamos compactar o arquivo
         print('Compactando o arquivo...')
         with zipfile.ZipFile(path_zip, 'w') as zip:
