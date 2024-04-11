@@ -31,6 +31,9 @@ if ($check){
 	git push #%remotoRepo%
 	echo "finalizando..."
 }
+else {
+	echo "Não entrei no if"
+}
 
 
 #No BAT, colocar o seguinte código:
