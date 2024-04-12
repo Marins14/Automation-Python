@@ -14,29 +14,48 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import os
 import pandas as pd
-#from email.mime.base import MIMEBase
+import zipfile
+from crypto import crypto_excel
+
+
 
 # Carregando variáveis de ambiente
 # Devido ao git não subir o .env é necessário criar um arquivo .env na pasta Env e colocar as variáveis de ambiente conforme exemplo
 from dotenv import load_dotenv
-load_dotenv('./Env/.env')
+load_dotenv('../Env/.env')
 
 # Função para tratamento dos dados
 # OBS: Este tratameneto é totalmente dependente da exportação vinda do banco de dados
 def tratamento_dados():
+    #definindo variavel path
+    path = '../dados/dados.xlsx'
+    path_tratado = '../dados/dados_tratados.xlsx'
+    path_zip = '../dados/dados_tratados.zip'
     # Mensagem de tratamento
     print('Tratando os dados...')
     # Tratamento dos dados, caso erro ele informa ao usuário qual o erro
     try:
-        df = pd.read_excel('./dados/dados.xlsx')
+        df = pd.read_excel(path, engine='openpyxl')
         #print(df.head()) #Caso necessário para verificar as tabelas
         #Separando as colunas pela virgula
         df[['1', '2','3','4','5','6']] = df['OPA'].str.split(',', n=5, expand=True) #n=1 é o número de vezes que a coluna será separada, n é sempre n-1 em relação a tabela
+        #Vamos separar a utlima coluna, concatenar e depois remover a coluna, coluna 6 é  a ultima
+        df = pd.concat([df, df['6'].str.split(';', expand=True)], axis=1) # O Concat concatena as colunas, axis=1 é para concatenar as colunas, axis=0 é para concatenar as linhas
+        # Removendo a coluna 6, pois já foi separada
+        df.drop(columns=['6'], inplace=True)
+        #df[['6', '7','8']] = df['6'].str.split(';', n=2, expand=True) # funciona mas sabendo que a coluna 6 é a ultima, não é necessário
         #Removendo a coluna OPA, já foi tratada e não é mais necessária
         df.drop(columns=['OPA'], inplace=True)
         # Definindo o novo arquivo
-        df.to_excel('./dados/dados_tratados.xlsx')
+        df.to_excel(path_tratado, index=False)
         print('Dados tratados com sucesso!')
+        #Cripitografando o arquivo
+        crypto_excel(path_tratado)
+        #Vamos compactar o arquivo
+        print('Compactando o arquivo...')
+        with zipfile.ZipFile(path_zip, 'w') as zip:
+            zip.write(path_tratado, os.path.basename(path_tratado))
+        print('Arquivo compactado com sucesso!')
     except FileNotFoundError:
         print('ERRO: Arquivo não encontrado!')
     except Exception as e:
@@ -96,4 +115,4 @@ def envio_email():
 if __name__ == '__main__':
     #banco()
     tratamento_dados()
-    envio_email()
+    #envio_email()
